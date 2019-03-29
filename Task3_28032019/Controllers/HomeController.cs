@@ -36,7 +36,6 @@ namespace Task3_28032019.Controllers
                     periodorders.Add(order);
                 }
             }
-
             ViewBag.Orders = periodorders;
             return View("Orders");
         }
@@ -94,9 +93,10 @@ namespace Task3_28032019.Controllers
             }
             return searchUser;
         }
-        public ActionResult UserInfo()
+        [HttpGet]
+        public ActionResult UserInfo(int id)
         {
-            int userID = 1;//input any user id as y want
+            int userID = id;//input any user id as y want
             int userAllPrice = 0;
 
             IEnumerable<User_Order> users_orders = DBUsPrKey.UsersOrders;
@@ -105,30 +105,41 @@ namespace Task3_28032019.Controllers
 
             //create an one user list of orders
             List<User_Order> user_orders = new List<User_Order>();
-            foreach (User_Order us in users_orders) {
-                if (us.Id_User == userID) {
+            foreach (User_Order us in users_orders)
+            {
+                if (us.Id_User == userID)
+                {
                     user_orders.Add(us);
                 }
             }
 
             List<Order> orderss = new List<Order>();
-            foreach (User_Order us1 in user_orders) {
-                foreach (Order or in orders) {
-                    if (us1.Id_Order == or.Id) {
+            foreach (User_Order us1 in user_orders)
+            {
+                foreach (Order or in orders)
+                {
+                    if (us1.Id_Order == or.Id)
+                    {
                         orderss.Add(or);
                     }
-                }   
+                }
             }
 
-            foreach (Order or in orderss) {
-                foreach (Product pr in products) {
-                    if (or.Id_Product == pr.Id) {
+            foreach (Order or in orderss)
+            {
+                foreach (Product pr in products)
+                {
+                    if (or.Id_Product == pr.Id)
+                    {
                         userAllPrice = userAllPrice + or.Quantity * pr.Price;
                     }
                 }
             }
-            return View();
+            ViewData["Price"] = userAllPrice.ToString();
+
+            return View("UserInfo");
         }
+        
         public ActionResult Products()
         {
             IEnumerable<Product> products = DBProducts.Productss;
