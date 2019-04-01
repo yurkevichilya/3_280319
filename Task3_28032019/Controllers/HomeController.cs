@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,7 +10,7 @@ namespace Task3_28032019.Controllers
 {
     public class HomeController : Controller
     {
-        UsersContext DBUsers = new UsersContext();
+        //UsersContext DBUsers = new UsersContext();
         //ProductContext DBProducts = new ProductContext();
         OrderContext DBOrders = new OrderContext();
         User_OrderContext DBUsPrKey = new User_OrderContext(); 
@@ -41,7 +42,7 @@ namespace Task3_28032019.Controllers
         }
         public ActionResult Users()
         {
-            IEnumerable<User> users = DBUsers.Users;
+            IEnumerable<User> users = DBOrders.Users;
             ViewBag.Users = users;
             return View();
         }
@@ -53,10 +54,10 @@ namespace Task3_28032019.Controllers
         [HttpPost]
         public ActionResult AddUser(User user)
         {
-            DBUsers.Users.Add(user);
-            DBUsers.SaveChanges();
+            DBOrders.Users.Add(user);
+            DBOrders.SaveChanges();
 
-            IEnumerable<User> users = DBUsers.Users;
+            IEnumerable<User> users = DBOrders.Users;
             ViewBag.Users = users;
             return View("Users");
         }
@@ -64,7 +65,7 @@ namespace Task3_28032019.Controllers
         public ActionResult ChangeUser(int id)
         {
             User currentUser = new User();
-            currentUser = FindByIdUser(id, DBUsers.Users);
+            currentUser = FindByIdUser(id, DBOrders.Users);
             ViewBag.Id = currentUser.Id;
             ViewBag.Name = currentUser.Name;
             ViewBag.Email = currentUser.Email;
@@ -73,11 +74,11 @@ namespace Task3_28032019.Controllers
         [HttpPost]
         public ActionResult ChangeUser(User user)
         {
-            var changeUser = DBUsers.Users.SingleOrDefault(b => b.Id == user.Id);
+            var changeUser = DBOrders.Users.SingleOrDefault(b => b.Id == user.Id);
             changeUser.Name = user.Name;
             changeUser.Email = user.Email;
-            DBUsers.SaveChanges();
-            IEnumerable<User> users = DBUsers.Users;
+            DBOrders.SaveChanges();
+            IEnumerable<User> users = DBOrders.Users;
             ViewBag.Users = users;
             return View("Users");
         }
@@ -98,53 +99,53 @@ namespace Task3_28032019.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult ChooseUser(int id)
-        {
-
-            int userID = id;//input any user id as y want
-            int userAllPrice = 0;
-            
-            IEnumerable<User_Order> users_orders = DBUsPrKey.UsersOrders;
-            IEnumerable<Order> orders = DBOrders.Orders;
-            IEnumerable<Product> products = DBOrders.Products;
-            
-            //create an one user list of orders
-            List<User_Order> user_orders = new List<User_Order>();
-            foreach (User_Order us in users_orders)
-            {
-                if (us.Id_User == userID)
-                {
-                    user_orders.Add(us);
-                }
-            }
-            
-            List<Order> orderss = new List<Order>();
-            foreach (User_Order us1 in user_orders)
-            {
-                foreach (Order or in orders)
-                {
-                    if (us1.Id_Order == or.Id)
-                    {
-                        orderss.Add(or);
-                    }
-                }
-            }
-            
-            foreach (Order or in orderss)
-            {
-                foreach (Product pr in products)
-                {
-                    if (or.Id_Product == pr.Id)
-                    {
-                        userAllPrice = userAllPrice + or.Quantity * pr.Price;
-                    }
-                }
-            }
-            ViewData["Price"] = userAllPrice.ToString();
-
-            return View("UserInfo");
-        }
+        //[HttpPost]
+        //public ActionResult ChooseUser(int id)
+        //{
+        //
+        //    int userID = id;//input any user id as y want
+        //    int userAllPrice = 0;
+        //    
+        //    IEnumerable<User_Order> users_orders = DBUsPrKey.UsersOrders;
+        //    IEnumerable<Order> orders = DBOrders.Orders;
+        //    IEnumerable<Product> products = DBOrders.Products;
+        //    
+        //    //create an one user list of orders
+        //    List<User_Order> user_orders = new List<User_Order>();
+        //    foreach (User_Order us in users_orders)
+        //    {
+        //        if (us.Id_User == userID)
+        //        {
+        //            user_orders.Add(us);
+        //        }
+        //    }
+        //    
+        //    List<Order> orderss = new List<Order>();
+        //    foreach (User_Order us1 in user_orders)
+        //    {
+        //        foreach (Order or in orders)
+        //        {
+        //            if (us1.Id_Order == or.Id)
+        //            {
+        //                orderss.Add(or);
+        //            }
+        //        }
+        //    }
+        //    
+        //    foreach (Order or in orderss)
+        //    {
+        //        foreach (Product pr in products)
+        //        {
+        //            if (or.Id_Product == pr.Id)
+        //            {
+        //                userAllPrice = userAllPrice + or.Quantity * pr.Price;
+        //            }
+        //        }
+        //    }
+        //    ViewData["Price"] = userAllPrice.ToString();
+        //
+        //    return View("UserInfo");
+        //}
 
         public ActionResult Products()
         {
@@ -170,7 +171,18 @@ namespace Task3_28032019.Controllers
 
         public ActionResult Orders()
         {
+            //SELECT dbo.Orders.id, dbo.Orders.nane, dbo.Products.name
+            //FROM dbo.Orders LEFT OUTER JOIN
+            //dbo.Products ON dbo.Orders.product_id = dbo.Products.id
             IEnumerable<Order> orders = DBOrders.Orders;
+            //IEnumerable<Product> products = DBOrders.Products.Include(p => p.Orders);
+
+            //var order = from o in orders
+            //            join p in products on o.Id_Product equals p.Id into orderProds
+            //            from op in orderProds
+            //            select new { op.Name };
+            //foreach(Product p in products){
+            //}
             ViewBag.Orders = orders;
             return View();
         }

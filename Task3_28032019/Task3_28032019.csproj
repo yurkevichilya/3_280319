@@ -142,6 +142,7 @@
     <Compile Include="Models\Period.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductContext.cs" />
+    <Compile Include="Models\ProductOrder.cs" />
     <Compile Include="Models\ProductsInit.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UsersContext.cs" />

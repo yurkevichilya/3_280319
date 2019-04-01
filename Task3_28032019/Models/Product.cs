@@ -13,6 +13,7 @@ namespace Task3_28032019.Models
 
         public int Price { get; set; }
 
-        //public ICollection<Order> Orders { get; set; }
+        public virtual List<ProductOrder> ProductOrder { get; set; }
+
     }
 }
