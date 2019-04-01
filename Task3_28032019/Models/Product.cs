@@ -12,5 +12,7 @@ namespace Task3_28032019.Models
         public string Name { get; set; }
 
         public int Price { get; set; }
+
+        //public ICollection<Order> Orders { get; set; }
     }
 }

@@ -18,5 +18,6 @@ namespace Task3_28032019.Models
 
         [DataType(DataType.Date)]
         public DateTime Bdate { get; set; }
+
     }
 }

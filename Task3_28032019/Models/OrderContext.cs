@@ -9,5 +9,6 @@ namespace Task3_28032019.Models
     public class OrderContext : DbContext
     {
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }

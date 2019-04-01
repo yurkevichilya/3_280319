@@ -10,7 +10,7 @@ namespace Task3_28032019.Controllers
     public class HomeController : Controller
     {
         UsersContext DBUsers = new UsersContext();
-        ProductContext DBProducts = new ProductContext();
+        //ProductContext DBProducts = new ProductContext();
         OrderContext DBOrders = new OrderContext();
         User_OrderContext DBUsPrKey = new User_OrderContext(); 
 
@@ -94,15 +94,21 @@ namespace Task3_28032019.Controllers
             return searchUser;
         }
         [HttpGet]
-        public ActionResult UserInfo(int id)
+        public ActionResult ChooseUser()
         {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChooseUser(int id)
+        {
+
             int userID = id;//input any user id as y want
             int userAllPrice = 0;
-
+            
             IEnumerable<User_Order> users_orders = DBUsPrKey.UsersOrders;
             IEnumerable<Order> orders = DBOrders.Orders;
-            IEnumerable<Product> products = DBProducts.Productss;
-
+            IEnumerable<Product> products = DBOrders.Products;
+            
             //create an one user list of orders
             List<User_Order> user_orders = new List<User_Order>();
             foreach (User_Order us in users_orders)
@@ -112,7 +118,7 @@ namespace Task3_28032019.Controllers
                     user_orders.Add(us);
                 }
             }
-
+            
             List<Order> orderss = new List<Order>();
             foreach (User_Order us1 in user_orders)
             {
@@ -124,7 +130,7 @@ namespace Task3_28032019.Controllers
                     }
                 }
             }
-
+            
             foreach (Order or in orderss)
             {
                 foreach (Product pr in products)
@@ -139,10 +145,10 @@ namespace Task3_28032019.Controllers
 
             return View("UserInfo");
         }
-        
+
         public ActionResult Products()
         {
-            IEnumerable<Product> products = DBProducts.Productss;
+            IEnumerable<Product> products = DBOrders.Products;
             ViewBag.Products = products;
             return View();
         }
@@ -154,10 +160,10 @@ namespace Task3_28032019.Controllers
         [HttpPost]
         public ActionResult AddProduct(Product product)
         {
-            DBProducts.Productss.Add(product);
-            DBProducts.SaveChanges();
+            DBOrders.Products.Add(product);
+            DBOrders.SaveChanges();
 
-            IEnumerable<Product> products = DBProducts.Productss;
+            IEnumerable<Product> products = DBOrders.Products;
             ViewBag.Products = products;
             return View("Products");
         }

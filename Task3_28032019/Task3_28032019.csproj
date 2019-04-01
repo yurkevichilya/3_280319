@@ -197,6 +197,7 @@
     <Content Include="Views\Home\ChangeUser.cshtml" />
     <Content Include="Views\Home\SelectPeriod.cshtml" />
     <Content Include="Views\Home\Period.cshtml" />
+    <Content Include="Views\Home\ChooseUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

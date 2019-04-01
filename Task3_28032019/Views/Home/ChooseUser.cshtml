@@ -6,22 +6,21 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Change Product</title>
+    <title>Choose User</title>
     <link rel="stylesheet" href="~/Content/Site.css">
 </head>
 <body>
     <div class="container__small">
         <div class="table">
             <form method="post" action="">
-                <input type="hidden" value="@ViewBag.ShopId" name="ShopId" />
                 <div class="table-content">
                     <div class="table-row">
                         <div class="table-data">
                             <div class="table-data">
-                                <input type="text" value="@ViewBag.Name" name="Name" />
+                                <p>Enter user id:</p>
                             </div>
                             <div class="table-data">
-                                <input type="text" value="@ViewBag.Email" name="Email" />
+                                <input type="text" name="id" />
                             </div>
                             <div class="table-data">
                                 <input type="submit" value="Create" />
