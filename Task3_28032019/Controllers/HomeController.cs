@@ -99,53 +99,138 @@ namespace Task3_28032019.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public ActionResult ChooseUser(int id)
-        //{
-        //
-        //    int userID = id;//input any user id as y want
-        //    int userAllPrice = 0;
-        //    
-        //    IEnumerable<User_Order> users_orders = DBUsPrKey.UsersOrders;
-        //    IEnumerable<Order> orders = DBOrders.Orders;
-        //    IEnumerable<Product> products = DBOrders.Products;
-        //    
-        //    //create an one user list of orders
-        //    List<User_Order> user_orders = new List<User_Order>();
-        //    foreach (User_Order us in users_orders)
-        //    {
-        //        if (us.Id_User == userID)
-        //        {
-        //            user_orders.Add(us);
-        //        }
-        //    }
-        //    
-        //    List<Order> orderss = new List<Order>();
-        //    foreach (User_Order us1 in user_orders)
-        //    {
-        //        foreach (Order or in orders)
-        //        {
-        //            if (us1.Id_Order == or.Id)
-        //            {
-        //                orderss.Add(or);
-        //            }
-        //        }
-        //    }
-        //    
-        //    foreach (Order or in orderss)
-        //    {
-        //        foreach (Product pr in products)
-        //        {
-        //            if (or.Id_Product == pr.Id)
-        //            {
-        //                userAllPrice = userAllPrice + or.Quantity * pr.Price;
-        //            }
-        //        }
-        //    }
-        //    ViewData["Price"] = userAllPrice.ToString();
-        //
-        //    return View("UserInfo");
-        //}
+        [HttpPost]
+        public ActionResult ChooseUser(int id)
+        {
+        
+            int userID = id;//input any user id as y want
+            int userAllPrice = 0;
+            
+            IEnumerable<User_Order> users_orders = DBUsPrKey.UsersOrders;
+            IEnumerable<Order> orders = DBOrders.Orders;
+            IEnumerable<Product> products = DBOrders.Products;
+            IEnumerable<ProductOrder> productOrders = DBOrders.ProductOrder;
+            
+            //create an one user list of orders
+            List<User_Order> user_orders = new List<User_Order>();
+            foreach (User_Order us in users_orders)
+            {
+                if (us.Id_User == userID)
+                {
+                    user_orders.Add(us);
+                }
+            }
+            
+            List<Order> orderss = new List<Order>();
+            foreach (User_Order us1 in user_orders)
+            {
+                foreach (Order or in orders)
+                {
+                    if (us1.Id_Order == or.Id)
+                    {
+                        orderss.Add(or);
+                    }
+                }
+            }
+
+            List<Product> userproducts = new List<Product>();
+            foreach (Order or in orderss)
+            {
+                foreach (ProductOrder pror in productOrders)
+                {
+                    if (pror.Id_Order == or.Id)
+                    {
+                        foreach (Product product in products)
+                        {
+                            if (product.Id == pror.Id_Product) {
+                                userAllPrice = userAllPrice + pror.Quantity * product.Price;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            //foreach (Order or in orderss)
+            //{
+            //    foreach (Product pr in products)
+            //    {
+            //        if (or.Id_Product == or)
+            //        {
+            //            userAllPrice = userAllPrice + or.Quantity * pr.Price;
+            //        }
+            //    }
+            //}
+            ViewData["Price"] = userAllPrice.ToString();
+        
+            return View("UserInfo");
+        }
+
+        [HttpGet]
+        public ActionResult UserInfo(int id)
+        {
+
+            int userID = id;//input any user id as y want
+            int userAllPrice = 0;
+
+            IEnumerable<User_Order> users_orders = DBUsPrKey.UsersOrders;
+            IEnumerable<Order> orders = DBOrders.Orders;
+            IEnumerable<Product> products = DBOrders.Products;
+            IEnumerable<ProductOrder> productOrders = DBOrders.ProductOrder;
+
+            //create an one user list of orders
+            List<User_Order> user_orders = new List<User_Order>();
+            foreach (User_Order us in users_orders)
+            {
+                if (us.Id_User == userID)
+                {
+                    user_orders.Add(us);
+                }
+            }
+
+            List<Order> orderss = new List<Order>();
+            foreach (User_Order us1 in user_orders)
+            {
+                foreach (Order or in orders)
+                {
+                    if (us1.Id_Order == or.Id)
+                    {
+                        orderss.Add(or);
+                    }
+                }
+            }
+
+            List<Product> userproducts = new List<Product>();
+            foreach (Order or in orderss)
+            {
+                foreach (ProductOrder pror in productOrders)
+                {
+                    if (pror.Id_Order == or.Id)
+                    {
+                        foreach (Product product in products)
+                        {
+                            if (product.Id == pror.Id_Product)
+                            {
+                                userAllPrice = userAllPrice + pror.Quantity * product.Price;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //foreach (Order or in orderss)
+            //{
+            //    foreach (Product pr in products)
+            //    {
+            //        if (or.Id_Product == or)
+            //        {
+            //            userAllPrice = userAllPrice + or.Quantity * pr.Price;
+            //        }
+            //    }
+            //}
+            ViewData["Price"] = userAllPrice.ToString();
+
+            return View("UserInfo");
+        }
 
         public ActionResult Products()
         {
@@ -227,5 +312,27 @@ namespace Task3_28032019.Controllers
             return View("UsersOrders");
         }
 
+        [HttpGet]
+        public ActionResult ProductOrder()
+        {
+            IEnumerable<ProductOrder> product_order = DBOrders.ProductOrder;
+            ViewBag.ProductOrder = product_order;
+            return View();
+        }
+        [HttpGet]
+        public ActionResult AddProductOrder()
+        {
+            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddProductOrder(ProductOrder productOrder)
+        {
+            DBOrders.ProductOrder.Add(productOrder);
+            DBOrders.SaveChanges();
+            IEnumerable<ProductOrder> product_order = DBOrders.ProductOrder;
+            ViewBag.ProductOrder = product_order;
+            return View("ProductOrder");
+        }
     }
 }

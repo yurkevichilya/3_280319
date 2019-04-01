@@ -199,6 +199,8 @@
     <Content Include="Views\Home\SelectPeriod.cshtml" />
     <Content Include="Views\Home\Period.cshtml" />
     <Content Include="Views\Home\ChooseUser.cshtml" />
+    <Content Include="Views\Home\ProductOrder.cshtml" />
+    <Content Include="Views\Home\AddProductOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
