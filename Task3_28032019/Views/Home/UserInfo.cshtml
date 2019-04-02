@@ -19,10 +19,48 @@
                             <p>Quantity of product price</p>
                         </div>
                         <div class="table-data">
-                            @ViewData["Price"]
+                            @ViewBag.price
+                        </div>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+
+                        <div class="table-content">
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            @if (ViewBag.userproducts != null)
+                            {
+                                foreach (var b in ViewBag.userproducts)
+                                {
+                                    <div class="table-row">
+                                        <div class="table-data">
+                                            <p>  Name  </p>
+                                        </div>
+                                        <div class="table-data">
+                                            <p>  @b.Name  </p>
+                                        </div>
+                                        <div class="table-data">
+                                            <p>  Price  </p>
+                                        </div>
+                                        <div class="table-data">
+                                            <p>  @b.Price  </p>
+                                        </div>
+                                           <div class="table-data">
+                                            <p>@foreach (var pror in ViewBag.userproductsorder) {
+                                                if (b.Id == pror.Id_Product) {
+                                                    <p> @pror.Quantity  </p>
+                                                }
+                                            }</p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
                         </div>
                     </div>
-                </div>
+                    </div>
             </form>
         </div>
     </div>

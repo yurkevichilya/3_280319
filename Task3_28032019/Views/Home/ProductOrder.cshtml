@@ -22,14 +22,26 @@
                 <div class="table-content">
                     @foreach (var b in ViewBag.ProductOrder)
                     {
-                        <div class="table-row">
-                            <div class="table-data">
-                                <p>@b.Id_Product</p>
-                            </div>
-                            <div class="table-data">
-                                <p>@b.Id_Order</p>
-                            </div>
+                    <div class="table-row">
+                        <div class="table-data">
+                            @foreach (var pr in ViewBag.Products)
+                            {
+                                if (b.Id_Product == pr.Id)
+                                {
+                                    <p>@pr.Name</p>
+                                }
+                            }
                         </div>
+                        <div class="table-data">
+                            @foreach (var order in ViewBag.Orders)
+                            {
+                                if (b.Id_Order == order.Id)
+                                {
+                                    <p>@order.Name</p>
+                                }
+                            }
+                        </div>
+                    </div>
                     }
                 </div>
             </div>

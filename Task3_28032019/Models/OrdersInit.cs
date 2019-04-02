@@ -10,9 +10,9 @@ namespace Task3_28032019.Models
     {
         protected override void Seed(OrderContext db)
         {
-            db.Orders.Add(new Order { Name = "firstord", Id = 1, Bdate = Convert.ToDateTime("20/03/2019")});
-            db.Orders.Add(new Order { Name = "second", Id = 2, Bdate = Convert.ToDateTime("20 / 03 / 2019") });
-            db.Orders.Add(new Order { Name = "third",  Id = 3,  Bdate = Convert.ToDateTime("20 / 03 / 2019") });
+            db.Orders.Add(new Order { Name = "ultraorder", Id = 1, Bdate = Convert.ToDateTime("20/03/2019")});
+            db.Orders.Add(new Order { Name = "superorder", Id = 2, Bdate = Convert.ToDateTime("20 / 03 / 2019") });
+            db.Orders.Add(new Order { Name = "maximumorder",  Id = 3,  Bdate = Convert.ToDateTime("20 / 03 / 2019") });
 
             db.Products.Add(new Product { Name = "Shoes", Price = 67, Id = 3 });
             db.Products.Add(new Product { Name = "Trousers", Price = 13, Id = 1 });

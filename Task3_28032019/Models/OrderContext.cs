@@ -8,6 +8,11 @@ namespace Task3_28032019.Models
 {
     public class OrderContext : DbContext
     {
+
+        public OrderContext()
+        {
+            Configuration.ProxyCreationEnabled = false;
+        }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
         }
@@ -17,5 +22,6 @@ namespace Task3_28032019.Models
         public DbSet<User> Users { get; set; }
         public DbSet<User_Order> UsersOrders { get; set; }
         public DbSet<ProductOrder> ProductOrder { get; set; }
+
     }
 }
