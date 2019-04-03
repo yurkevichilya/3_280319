@@ -113,12 +113,13 @@ namespace Task3_28032019.Controllers
         
             int userID = id;//input any user id as y want
             int userAllPrice = 0;
-            
+
+
             IEnumerable<User_Order> users_orders = DBOrders.UsersOrders;
             IEnumerable<Order> orders = DBOrders.Orders;
             IEnumerable<Product> products = DBOrders.Products;
             IEnumerable<ProductOrder> productOrders = DBOrders.ProductOrder;
-            
+
             //create an one user list of orders
             List<User_Order> user_orders = new List<User_Order>();
             foreach (User_Order us in users_orders)
@@ -128,7 +129,7 @@ namespace Task3_28032019.Controllers
                     user_orders.Add(us);
                 }
             }
-            
+
             List<Order> orderss = new List<Order>();
             foreach (User_Order us1 in user_orders)
             {
@@ -142,6 +143,7 @@ namespace Task3_28032019.Controllers
             }
 
             List<Product> userproducts = new List<Product>();
+            List<ProductOrder> userproductsorder = new List<ProductOrder>();
             foreach (Order or in orderss)
             {
                 foreach (ProductOrder pror in productOrders)
@@ -150,9 +152,11 @@ namespace Task3_28032019.Controllers
                     {
                         foreach (Product product in products)
                         {
-                            if (product.Id == pror.Id_Product) {
+                            if (product.Id == pror.Id_Product)
+                            {
                                 userAllPrice = userAllPrice + pror.Quantity * product.Price;
                                 userproducts.Add(product);
+                                userproductsorder.Add(pror);
                             }
                         }
                     }
@@ -169,11 +173,13 @@ namespace Task3_28032019.Controllers
             //        }
             //    }
             //}
-
-            ViewBag.price = userAllPrice.ToString();
+            ViewData["Price"] = userAllPrice.ToString();
+            ViewBag.userproducts = userproducts;
+            ViewBag.userproductsorder = userproductsorder;
             return View("UserInfo");
         }
 
+       
         [HttpGet]
         public ActionResult UserInfo(int id)
         {
@@ -268,6 +274,20 @@ namespace Task3_28032019.Controllers
                 }
                 Console.WriteLine("Объект сериализован");
             }
+            return View("Index");
+        }
+        public ActionResult ProductsDeSerialize()
+        {
+            IEnumerable<Product> products = DBOrders.Products;
+            Product oneofthem = new Product();
+         
+            XmlSerializer formatter = new XmlSerializer(typeof(Product));
+
+            using (FileStream fs = new FileStream("Products.xml", FileMode.OpenOrCreate))
+            {
+                Product newPerson = (Product)formatter.Deserialize(fs);
+            }
+
             return View("Index");
         }
         [HttpGet]
@@ -376,6 +396,10 @@ namespace Task3_28032019.Controllers
         [HttpGet]
         public ActionResult UsersOrdersAdd()
         {
+            IEnumerable<User> users = DBOrders.Users;
+            IEnumerable<Order> orders = DBOrders.Orders;
+            ViewBag.Users = users;
+            ViewBag.Orders = orders;
             return View();
         }
 
@@ -387,6 +411,10 @@ namespace Task3_28032019.Controllers
 
             IEnumerable<User_Order> users_orders = DBOrders.UsersOrders;
             ViewBag.UsersOrders = users_orders;
+            IEnumerable<User> users = DBOrders.Users;
+            IEnumerable<Order> orders = DBOrders.Orders;
+            ViewBag.Users = users;
+            ViewBag.Orders = orders;
             return View("UsersOrders");
         }
 
@@ -417,7 +445,11 @@ namespace Task3_28032019.Controllers
             DBOrders.ProductOrder.Add(productOrder);
             DBOrders.SaveChanges();
             IEnumerable<ProductOrder> product_order = DBOrders.ProductOrder;
+            IEnumerable<Product> products = DBOrders.Products;
+            IEnumerable<Order> orders = DBOrders.Orders;
             ViewBag.ProductOrder = product_order;
+            ViewBag.Products = products;
+            ViewBag.Orders = orders;
             return View("ProductOrder");
         }
     }

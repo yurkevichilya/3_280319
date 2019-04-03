@@ -17,17 +17,29 @@
                     <div class="table-row">
                         <div class="table-data">
                             <div class="table-data">
-                                <p>Enter Id_User:</p>
+                                <p>Enter Order:</p>
                             </div>
+                            <ul>
+                                @foreach (var order in ViewBag.Orders)
+                                {
+                                    <span>@order.Name</span>
+                                    <span>@order.Id</span>
+                                    <span>
+                                        <input type="radio" value="@order.Id" name="Id_Order" />
+                                    </span>
+                                }
+                            </ul>
                             <div class="table-data">
-                                <input type="text" name="Id_User" />
+                                <p>Enter User:</p>
                             </div>
-                            <div class="table-data">
-                                <p>Enter Id_Order:</p>
-                            </div>
-                            <div class="table-data">
-                                <input type="text" name="Id_Order" />
-                            </div>
+                            @foreach (var user in ViewBag.Users)
+                            {
+                                <span>@user.Name</span>
+                                <span>@user.Id</span>
+                                <span>
+                                    <input type="radio" value="@user.Id" name="Id_User" />
+                                </span>
+                            }
                             <div class="table-data">
                                 <input type="submit" value="Create" />
                             </div>

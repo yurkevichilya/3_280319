@@ -17,12 +17,28 @@
                 <div class="table-header">
                     <div class="header__item">
                         <p><a class="filter__link__white" href="/Home/AddProductOrder">Add</a></p>
+                        <p><a class="filter__link__white" href="/Home/Index">Home</a></p>
                     </div>
                 </div>
                 <div class="table-content">
+                    <div class="table-row">
+                        <div class="table-data">
+                          <p>Кличество</p>
+                        </div>
+                        <div class="table-data">
+                            <p>Продукт</p>
+                        </div>
+                        <div class="table-data">
+                            <p>Заказ</p>
+                        </div>
+                    </div>
                     @foreach (var b in ViewBag.ProductOrder)
                     {
+            
                     <div class="table-row">
+                        <div class="table-data">
+                            <p>@b.Quantity</p>
+                        </div>
                         <div class="table-data">
                             @foreach (var pr in ViewBag.Products)
                             {
@@ -42,8 +58,8 @@
                             }
                         </div>
                     </div>
-                    }
-                </div>
+                        }
+                    </div>
             </div>
         </div>
     </div>
