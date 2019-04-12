@@ -12,12 +12,12 @@ namespace Task3_28032019
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        internal static OrderContext DBOrders;
         protected void Application_Start()
         {
-            Database.SetInitializer(new UsersInit());
-            Database.SetInitializer(new ProductsInit());
+            DBOrders = new OrderContext();
+            Application.Add("DBOrders", DBOrders);
             Database.SetInitializer(new OrdersInit());
-            Database.SetInitializer(new User_OrderInit());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

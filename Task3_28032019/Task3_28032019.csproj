@@ -132,24 +132,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderContext.cs" />
-    <Compile Include="Models\OrdersInit.cs" />
-    <Compile Include="Models\Period.cs" />
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductContext.cs" />
-    <Compile Include="Models\ProductOrder.cs" />
-    <Compile Include="Models\ProductsInit.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UsersContext.cs" />
-    <Compile Include="Models\UsersInit.cs" />
-    <Compile Include="Models\User_Order.cs" />
-    <Compile Include="Models\User_OrderContext.cs" />
-    <Compile Include="Models\User_OrderInit.cs" />
+    <Compile Include="Areas\Admin\Models\Order.cs" />
+    <Compile Include="Areas\Admin\Models\OrderContext.cs" />
+    <Compile Include="Areas\Admin\Models\OrdersInit.cs" />
+    <Compile Include="Areas\Admin\Models\Period.cs" />
+    <Compile Include="Areas\Admin\Models\Product.cs" />
+    <Compile Include="Areas\Admin\Models\ProductOrder.cs" />
+    <Compile Include="Areas\Admin\Models\User.cs" />
+    <Compile Include="Areas\Admin\Models\User_Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +159,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Products.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Users.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
